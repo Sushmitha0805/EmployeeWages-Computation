@@ -6,7 +6,7 @@ public class EmployeeWageBuilder
    public static final int EMP_WAGE_PER_HR=20;
   public static final int NUM_OF_WORKING_DAYS=20;
   public static final int maxhrs=100;
-	public static void main(String[] args)
+	public static int computeEmpWage( )
 	{
          int empHrs=0;
          int Salary=0;
@@ -38,7 +38,9 @@ public class EmployeeWageBuilder
      }
                 Salary=(TotalEmpHr*EMP_WAGE_PER_HR);
                 System.out.println("Salary of employee: "+Salary);
-
-}
-
+                return Salary;
+ }
+    public static void main(String[] args){
+    computeEmpWage();
+  }
 }
