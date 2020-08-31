@@ -5,15 +5,16 @@ public class EmployeeWageBuilder
   public static final int IS_FULL_TIME=2;
    public static final int EMP_WAGE_PER_HR=20;
   public static final int NUM_OF_WORKING_DAYS=20;
-
+  public static final int maxhrs=100;
 	public static void main(String[] args)
 	{
          int empHrs=0;
          int Salary=0;
-         int EMP_WAGE_PER_DAY=0;
+         int TotalWorkingDays=0;
+         int TotalEmpHr=0;
         
          //Computation
-          for(int day=1; day<NUM_OF_WORKING_DAYS;day++)
+           while(TotalEmpHr <= maxhrs && TotalWorkingDays < NUM_OF_WORKING_DAYS)
           {
       	int empCheck=(int)Math.floor(Math.random()*10)%3;
 			 
@@ -31,10 +32,13 @@ public class EmployeeWageBuilder
 					     empHrs=0;
                     break;
 		}
-       EMP_WAGE_PER_DAY=(empHrs*EMP_WAGE_PER_HR);
-       Salary=(Salary+EMP_WAGE_PER_DAY);
-	}
-    System.out.println("Monthly salary of employee = "  +Salary);
+           TotalEmpHr=(TotalEmpHr+empHrs);
+                        System.out.println("Day:"+TotalWorkingDays+" Emp Hours:"+ empHrs);
+
+     }
+                Salary=(TotalEmpHr*EMP_WAGE_PER_HR);
+                System.out.println("Salary of employee: "+Salary);
+
 }
 
 }
