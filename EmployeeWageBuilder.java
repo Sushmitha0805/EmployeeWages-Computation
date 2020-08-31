@@ -1,46 +1,123 @@
-public class EmployeeWageBuilder
-{
+public class EmployeeWageBuilder {
 
-   public static final int IS_PART_TIME=1;
-  public static final int IS_FULL_TIME=2;
-   public static final int EMP_WAGE_PER_HR=20;
-  public static final int NUM_OF_WORKING_DAYS=20;
-  public static final int maxhrs=100;
-	public static int computeEmpWage( )
-	{
-         int empHrs=0;
-         int Salary=0;
-         int TotalWorkingDays=0;
-         int TotalEmpHr=0;
-        
-         //Computation
-           while(TotalEmpHr <= maxhrs && TotalWorkingDays < NUM_OF_WORKING_DAYS)
-          {
-      	int empCheck=(int)Math.floor(Math.random()*10)%3;
-			 
-         switch( empCheck ){
-             case IS_FULL_TIME:
-				      System.out.println("Employee Is full time");
-			         empHrs=8;
-                   break;
-     	      case IS_PART_TIME:
-				       System.out.println("Employee is Part time Employee");
-					     empHrs=4;
-                  break;
-            default:
-			           System.out.println("Employee Is Absent");
-					     empHrs=0;
-                    break;
-		}
-           TotalEmpHr=(TotalEmpHr+empHrs);
-                        System.out.println("Day:"+TotalWorkingDays+" Emp Hours:"+ empHrs);
+   private int noOfCompany = 0;
+   private Company [] companies;
 
-     }
-                Salary=(TotalEmpHr*EMP_WAGE_PER_HR);
-                System.out.println("Salary of employee: "+Salary);
-                return Salary;
- }
-    public static void main(String[] args){
-    computeEmpWage();
-  }
+   public EmployeeWageBuilder() {
+      companies = new Company[5];
+   }
+
+   public static void main(String[] args) {
+      final EmployeeWageBuilder empBuilder = new EmployeeWageBuilder();
+      empBuilder.addCompany("DMART", 20, 20, 100);
+      empBuilder.addCompany("SBI", 20, 18, 110);
+
+      empBuilder.computeEmpWage();
+   }
+
+   public void addCompany(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth){
+      companies[noOfCompany] = new Company(name, empRate, numOfWorkingDays, maxHrsInMonth);
+      noOfCompany++;
+   }
+
+
+   private void computeEmpWage(){
+
+         for(int i = 0; i< noOfCompany; i++){
+         final int totalWage = computeEmpWage(companies[i]);
+         companies[i].setTotalEmpWage(totalWage);
+         System.out.println(companies[i]);
+      }
+
+   }
+
+   private int computeEmpWage(final Company company) {
+      int totalWage = 0;
+      int totalEmpHrs = 0;
+      int totalWorkingDays = 0;
+      while(totalEmpHrs < company.getMaxHrsInMonth() && totalWorkingDays< company.getNumOfWorkingDays()){
+         totalWorkingDays++;
+
+         final int empHrs = getEmpHrs();
+         final int empWage = empHrs*company.getEmpRate();
+         totalEmpHrs+=empHrs;
+         totalWage+=empWage;
+
+      }
+
+      return totalWage;
+   }
+
+
+   public int getEmpHrs() {
+
+      final int isFullTime = 1;
+      final int isPartTime = 2;
+      int empHrs = 0;
+
+
+      final double randomValue = Math.floor(Math.random()*10)%3;
+
+      switch((int)randomValue) {
+
+         case isFullTime:
+            empHrs = 8;
+            //System.out.println("Employee is full time");
+            break;
+         case isPartTime:
+            empHrs = 4;
+            //System.out.println("Employee part time.");
+            break;
+         default:
+            //System.out.println("Employee is absent");
+            break;
+      }
+      return empHrs;
+   }
+
+
 }
+
+
+class Company {
+   private String name;
+   private int empRate;
+   private int numOfWorkingDays;
+   private int maxHrsInMonth;
+   private int totalEmpWage;
+
+   public Company(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth){
+      this.name = name;
+      this.empRate = empRate;
+      this.numOfWorkingDays = numOfWorkingDays;
+      this.maxHrsInMonth = maxHrsInMonth;
+   }
+
+   public String getName(){
+      return this.name;
+   }
+
+   public int getEmpRate(){
+      return this.empRate;
+   }
+
+   public int getNumOfWorkingDays(){
+      return this.numOfWorkingDays;
+   }
+
+   public int getMaxHrsInMonth(){
+      return this.maxHrsInMonth;
+   }
+
+   public void setTotalEmpWage(final int totalEmpWage){
+      this.totalEmpWage=totalEmpWage;
+   }
+
+   @Override
+   public String toString(){
+      return "Total emp wage for company: "+name+" is "+ totalEmpWage;
+   }
+
+}
+
+
