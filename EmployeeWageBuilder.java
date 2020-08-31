@@ -9,7 +9,7 @@ public class EmployeeWageBuilder
 	public static void main(String[] args)
 	{
          int empHrs=0;
-         int totalWage=0;
+         int Salary=0;
          int EMP_WAGE_PER_DAY=0;
         
          //Computation
@@ -32,8 +32,9 @@ public class EmployeeWageBuilder
                     break;
 		}
        EMP_WAGE_PER_DAY=(empHrs*EMP_WAGE_PER_HR);
-       totalWage=(totalWage+EMP_WAGE_PER_DAY);
+       Salary=(Salary+EMP_WAGE_PER_DAY);
 	}
-    System.out.println("Monthly salary of employee = "  +totalWage);
+    System.out.println("Monthly salary of employee = "  +Salary);
 }
+
 }
