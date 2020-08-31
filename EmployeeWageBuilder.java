@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
  interface EmpWageBuilder{
      void addCompany(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth);
@@ -8,10 +10,12 @@ import java.util.ArrayList;
  public class EmployeeWageBuilder implements EmpWageBuilder {
 	
 	private List<Company>companies;
-
-	public EmployeeWageBuilder() {
+   private Map<String,Integer> companyWages;
+	
+      public EmployeeWageBuilder() {
 		companies = new ArrayList<Company>();
-	}
+	   companyWages= new HashMap<String,Integer>();
+   }
 
 	public static void main(String[] args) {
 		final EmpWageBuilder empBuilder = new EmployeeWageBuilder();
@@ -33,8 +37,9 @@ import java.util.ArrayList;
          final Company company=companies.get(i);
 			final int totalWage = computeEmpWage(company);
 			company.setTotalEmpWage(totalWage);
-			System.out.println(company);
+			companyWages.put(company.getName(),totalWage);
 		}
+       System.out.println("companywages" +companyWages.toString());
 
 	}
 	
